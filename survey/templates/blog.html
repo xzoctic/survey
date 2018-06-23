@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+   <head>
+   <title>Blog</title>
+   </head>
+   {% include 'navbar.html' %} 
+   <body>
+        
+        <div class="container-fluid text-center">
+    <h1>Blogs</h1>
+        </div>
+        
+    <br>
+        {% for blog_post in blog_posts %}
+        <div class="container">
+            <div class="card">
+                <h2><div class="card-header">{{ blog_post.get_title() }}</div></h2>
+                <h6><div class="card-body">{{ blog_post.get_text() }}</div></h6>
+                <div class="card-footer text-muted">Date created: {{ blog_post.get_date() }} <br>   Author: {{ blog_post.get_author() }}
+
+                        <form method="POST" action="/blog">
+                            <input type="hidden" name="id" value="{{ blog_post.get_id() }}">
+                            <br>
+                            <input class="btn btn-primary" type="submit" name="submit" value="Modify">
+                            <input class="btn btn-primary" type="submit" name="submit" value="Delete" style="margin-left:10px;">
+                        </form> 
+
+                </div>
+               
+            
+            </div> 
+        </div>          
+ <br>
+        {% endfor %}
+  
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+        <h2><legend>Add new Blog</legend></h2>
+        </div>
+        <div class="card-body">
+    <form method="POST" action="/blog">
+        <fieldset>
+        <p><textarea name="title" rows="1" cols="68" placeholder="Title"></textarea></p>    
+        <p><textarea name="text" rows="11" cols="130" placeholder="Type blog here"></textarea></p>
+        <input type="text" name="date" placeholder="Today's date">
+        <input type="text" name="author" placeholder="Your name" style="margin-left:10px;">
+        <input class="btn btn-primary" type="submit" name="submit" value="Save" style="margin-left:10px; width:100px">
+        </fieldset>    
+    </form>
+</div>
+        </div>
+<br>            
+    </div>    
+<br><br>
+<br>
+
+   </body>
+</html>

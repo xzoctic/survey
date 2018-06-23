@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+   <head>
+   <title>Additonal information</title>
+   </head>
+{% include 'navbar.html' %} 
+   <body>
+    <div class="container-fluid text-center">
+    <br>
+    <h1>Additional information</h1>
+        {{ item.get_additional_info() }} 
+    <br>
+    <br>
+    <a href="{{ url_for('todosite') }}">Back to previous page</a> 
+    </div>
+   </body>
+</html>
+<!--the item.get_additional_info() displays the additional 
+    info function OF the object,
+-->

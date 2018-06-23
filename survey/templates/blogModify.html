@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+   <head>
+   <title>Blog</title>
+   </head>
+   {% include 'navbar.html' %} 
+    <body>
+        <div class="container-fluid text-center">
+    <h1>Modify Blog</h1>
+        </div>
+<br>
+<!--<textarea type="text" name="briefDescription" id="briefDescription" rows="12" cols="98" value="${briefDescription}" ></textarea>
+
+<textarea type="text" name="briefDescription" id="briefDescription" rows="12" cols="98">$briefDescription</textarea>-->
+    <div class="container bg-light">
+<br>
+    <form method="POST" action="/modifyBlog/{{ blog_post.get_id() }}">
+        <fieldset>
+        <input type="hidden" name="id" value="{{ blog_post.get_id() }}">
+        <p><textarea type="text" name="title" rows="1" cols="68">{{ blog_post.get_title() }}</textarea></p>
+        <p><textarea type="text" name="text" rows="11" cols="136">{{ blog_post.get_text() }}</textarea></p>
+        <input type="text" name="date" value="{{ blog_post.get_date() }}">
+        <input type="text" name="author" value="{{ blog_post.get_author() }}" style="margin-left:10px;">
+        <input class="btn btn-primary" type="submit" name="submit" value="Save" style="margin-left:10px; width:100px">
+        </fieldset>
+    </form>
+<br>
+    </div>
+<br><br>
+<br>
+    </body>
+</html>
+

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+   <head>
+   <title>Login to Moodle</title>
+   </head>
+   <body>
+      <h1>  Login </h1>
+      <form method="POST" action="/">
+         <input name="username" placeholder="Enter your username"/>
+         <input type="password" name="password" placeholder="Enter your password"/>
+         <input type="submit" name="submit" value="Login"/>
+      </form>
+
+      {% if failed == True %}
+      <h1>Wrong username or password</h1>
+      {% endif %}
+<!--
+      <h1> Create Account </h1>
+      <form method="POST">
+         <input name="new_username" placeholder="Enter a username"/>
+         <input name="new_password" placeholder="Enter a password"/>
+         <input type="submit" name="submit" value="Create Account"/>
+      </form>
+-->
+   </body>
+</html>

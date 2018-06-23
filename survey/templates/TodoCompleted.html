@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+   <head>
+   <title>To Do Completed</title>
+   </head>
+   {% include 'navbar.html' %} 
+   <body>
+    <h1>To Do Completed</h1>
+    <h5><a href="{{ url_for('todosite') }}">Back to previous page</a></h5>
+<br>
+    <div class="container-fluid text-center">
+    <table class="table text-center" border="1">
+        <tr>
+            <td>
+            </td>  
+            <td>
+                <strong>Item</strong>
+            </td>  
+            <td>
+                <strong>Date Due</strong>
+            </td>
+             
+        </tr>
+        {% for item in todo_items %}
+            {% if item.get_status() == True %} 
+            <tr>
+                <form method="POST" action="/todolist/completed">
+                    <input type="hidden" name="id" value="{{ item.get_id() }}">
+                <td>
+                    <input type="submit" name= "submit" id = "delete" value = "Delete?">
+                </td>  
+                <td>
+                    {{ item.get_description() }}
+                </td>  
+                <td>
+                    {{ item.get_time() }}
+                </td>
+                </form>  
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    </div>
+   </body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+   <head>
+   <title>Calculator</title>
+   </head>
+   {% include 'navbar.html' %} 
+   <body>
+    <div class="container-fluid text-center">
+        <h1>Calculator</h1>
+        <h2>
+
+            {% if error == True %}
+                The interest you were charged was higher than the actual payment, or your input format was invalid. Please try again!
+            {% endif %}
+
+        </h2>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link 
+          {% if (months != None or value != None) or GPA == None %} 
+                active
+            {% endif %}
+          
+          " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" >Loan Calculator</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link 
+          
+          {% if GPA != None %} 
+                active
+            {% endif %}
+          
+          " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" >GPA Calculator</a>
+        </li>
+        
+      </ul>
+      <br>
+     
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade{% if (months != None or value != None) or GPA == None %} show active{% endif %}" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="container bg-light"> 
+                <h1>Monthly payment calculator</h1>
+                <h2>
+
+                    {% if value != None %}
+                        ${{ value }} Monthly payment required to pay off Loan
+                    {% endif %}
+
+                </h2>
+                <form method = "POST" action="/calculator">  
+            <br>
+            <tr>
+                    <td width="80%">
+      
+                          <table border="0" width="80%" cellspacing="5" cellpadding="5">
+      
+                            <tr>
+                                  <td width="30%" align="right">
+                                      <span style="font-weight:bold;font-family:Arial;font-size:14px">Loan Amount</span>
+                                  </td>
+                                  <td width="40%" valign="top" align="left">
+                                      <input name="loanAmount" size="20" maxlength="75">&nbsp;
+                                  </td>
+                            </tr>
+      
+                            <tr>
+                                  <td width="30%" align="right">
+                                      <span style="font-weight:bold;font-family:Arial;font-size:14px">Interest Rate</span>
+                                  </td>
+                                  <td width="40%" valign="top" align="left">
+                                      <input name="interestRate" size="20" maxlength="75" onkeypress="return isNumberKey(event);">
+                                      &nbsp;<span style="font-weight:bold;font-family:Arial;font-size:14px">% per year</span>
+                                  </td>
+                            </tr>
+      
+                            <tr>
+                                  <td width="30%" align="right">
+                                      <span style="font-weight:bold;font-family:Arial;font-size:14px">Loan Term</span>
+                                  </td>
+                                  <td width="40%" align="left">
+                                      <input name="years" size="5" maxlength="75" onkeypress="return isNumberKeyAndClear(event);">
+                                      <span style="font-weight:bold;font-family:Arial;font-size:14px">&nbsp;Years</span>&nbsp;&nbsp;
+                                      <input name="months" size="5" maxlength="75" onkeypress="return isNumberKeyAndClear(event);">
+                                      <span style="font-weight:bold;font-family:Arial;font-size:14px">&nbsp;Months</span>
+                                  </td>
+                            </tr>
+      
+                        
+      
+                          <table border="0" width="80%" cellspacing="5" cellpadding="5">
+                            <tr>
+                                  <td>
+                                      <p><input class="btn btn-primary" type="reset" name="reset" value="Reset" style="margin-left:380px;width:100px">
+                                  </td>
+                                  <td>
+                                      <input class="btn btn-primary" type="submit" name="submit" value="Calculate Monthly Payment" style="margin-right:185px;width:250px"></p>
+                                  </td>
+                            </tr>
+                          
+                          </table>
+      
+      
+                      </td>
+                  </tr>
+                </form>
+                <h1>Term calculator</h1>
+                <h2>
+
+                    {% if months != None %}
+                        {{ months}} months remaining
+                    {% endif %}
+
+                </h2>
+                <form method = "POST" action="/calculator">  
+                    <br>
+                    <tr>
+                            <td width="80%">
+              
+                                  <table border="0" width="80%" cellspacing="5" cellpadding="5">
+              
+                                    <tr>
+                                          <td width="30%" align="right">
+                                              <span style="font-weight:bold;font-family:Arial;font-size:14px">Loan Amount</span>
+                                          </td>
+                                          <td width="40%" valign="top" align="left">
+                                              <input name="loanAmount" size="20" maxlength="75">&nbsp;
+                                          </td>
+                                    </tr>
+              
+                                    <tr>
+                                          <td width="30%" align="right">
+                                              <span style="font-weight:bold;font-family:Arial;font-size:14px">Interest Rate</span>
+                                          </td>
+                                          <td width="40%" valign="top" align="left">
+                                              <input name="interestRate" size="20" maxlength="75" onkeypress="return isNumberKey(event);">
+                                              &nbsp;<span style="font-weight:bold;font-family:Arial;font-size:14px">% per year</span>
+                                          </td>
+                                    </tr>
+              
+                             
+              
+                                    <tr>
+                                          <td width="30%" align="right">
+                                              <span style="font-weight:bold;font-family:Arial;font-size:14px">Payment per Month</span>
+                                          </td>
+                                          <td width="40%" valign="top" align="left">
+                                              <input name="extraMonthlyPayment" size="20" maxlength="75" onkeypress="return isNumberKey(event);" onkeyup="addGroupingSeperator('extraMonthlyPayment', '.', ',');">
+                                          </td>
+                                    </tr>
+              
+                                  <table border="0" width="80%" cellspacing="5" cellpadding="5">
+                                    <tr>
+                                          <td>
+                                              <p><input class="btn btn-primary" type="reset" name="reset" value="Reset" style="margin-left:380px;width:100px">
+                                          </td>
+                                          <td>
+                                              <input class="btn btn-primary" type="submit" name="submit" value="Calculate Term" style="margin-right:185px;width:250px"></p>
+                                          </td>
+                                    </tr>
+                                  
+                                  </table>
+              
+              
+                              </td>
+                          </tr>
+                        </form>
+        </div>    
+        </div>
+        <div class="tab-pane fade {% if GPA != None %} show active {% endif %}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <form method="POST">
+                    <div class="container bg-light"> 
+                        <table align="center">
+                            <tr>
+                                <td>
+                                    Total number of units studied
+                                </td>
+                                <td>
+                                    <input name="courses_studied" size="3" maxlength="3" onkeyup="checkLength(this)" id="courses_studied" class="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    High Distinction Units
+                                </td>
+                                <td>
+                                    <input name="courses_studied" size="3" maxlength="3" onkeyup="checkLength(this)" id="courses_studied" class="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Distinction Units
+                                </td>
+                                <td>
+                                    <input name="courses_studied" size="3" maxlength="3" onkeyup="checkLength(this)" id="courses_studied" class="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   Credit Units
+                                </td>
+                                <td>
+                                    <input name="courses_studied" size="3" maxlength="3" onkeyup="checkLength(this)" id="courses_studied" class="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Pass Units
+                                </td>
+                                <td>
+                                    <input name="courses_studied" size="3" maxlength="3" onkeyup="checkLength(this)" id="courses_studied" class="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Fail Units
+                                </td>
+                                <td>
+                                    <input name="courses_studied" size="3" maxlength="3" onkeyup="checkLength(this)" id="courses_studied" class="text">
+                                </td>
+                            </tr>
+                      
+                                <td>
+                                    <input class="btn btn-primary" type="submit" name="submit" value="Calculate GPA" style="width:250px">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                        <h2>
+
+                            {% if GPA != None %}
+                                Your GPA is {{ GPA }}.
+                            {% endif %}
+
+                        </h2>
+                    </div>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">adskddsajdlakdsj</div>
+      </div>
+    <br><br>
+   </body>
+</html>

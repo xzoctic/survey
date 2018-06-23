@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+   <head>
+   <title>Food Survey</title>
+   </head>
+
+{% include 'navbar.html' %} 
+<body>
+    <div class="container-fluid text-center">
+        <h1>STHS Canteen Survey</h1>
+        
+    <div class="container-fluid text-center">
+    <table class="table text-center" border="1">
+        <tr> 
+            <td>
+                <strong>Name</strong>
+            </td>  
+            <td>
+                <strong>Cuisine</strong>
+            </td>
+            <td>
+                <strong>Price</strong>
+            </td>    
+        
+        </tr>
+        {% for recommendation in recommendations %}
+            <tr>
+                <td>
+                    {{ recommendation.get_name() }}
+                </td>  
+                <td>
+                    {{ recommendation.get_cuisine() }}
+                </td>
+                <td>
+                    ${{ recommendation.get_price() }}
+                </td>  
+            </form>  
+            </tr>
+        {% endfor %}    
+    </table>
+    </div>
+        <!--{% for recommendation in recommendations %}
+            {{ recommendation.get_name() }}: {{ recommendation.get_cuisine() }}, ${{ recommendation.get_price() }}
+        {% endfor %}
+        -->
+        
+        {% if error == True %}
+        <strong> No foods match your preferences. Please Try Again!</strong>
+        {% endif %}
+
+        <div class="container bg-light text-left">
+            <br>
+            <h5><legend>Enter your preferences!</legend></h5>
+            <br>
+        <form method="POST" action="/canteenSurvey">
+            <fieldset>
+            <p>
+            <strong>CUISINE: </strong> &nbsp; &nbsp; 
+            <input type = "radio" name ="cuisine" value="Middle Eastern" checked> Middle Eastern &nbsp; &nbsp; 
+            <input type = "radio" name ="cuisine" value="Asian"> Asian &nbsp; &nbsp; 
+            <input type = "radio" name ="cuisine" value="Western"> Western &nbsp; &nbsp; 
+            </p>
+            <p>
+            <strong>PRICE (Between $0 and $10): </strong> &nbsp; &nbsp;  <input type = "text" name ="price" value="5" placeholder="Enter amount">
+            </p>
+            <p>
+            <strong>AVAILABILITY: </strong> &nbsp; &nbsp; 
+            <input type = "checkbox" name ="availability" value="Monday" checked> Monday &nbsp; &nbsp; 
+            <input type = "checkbox" name ="availability" value="Tuesday"> Tuesday &nbsp; &nbsp; 
+            <input type = "checkbox" name ="availability" value="Wednesday"> Wednesday &nbsp; &nbsp; 
+            <input type = "checkbox" name ="availability" value="Thursday"> Thursday &nbsp; &nbsp; 
+            <input type = "checkbox" name ="availability" value="Friday"> Friday &nbsp; &nbsp; 
+            </p>
+            <p>
+            <strong>SPICY: </strong> &nbsp; &nbsp; 
+            <input type = "radio" name ="spicy" value="Yes" checked> Yes &nbsp; &nbsp; 
+            <input type = "radio" name ="spicy" value="No"> No &nbsp; &nbsp; 
+            <input type = "radio" name ="spicy" value="Doesn't Matter"> Doesn't Matter &nbsp; &nbsp; 
+            </p>
+            <input class="btn btn-primary" type="submit" name="submit" value="Save" style="width:100px">
+            </fieldset>
+        </form>
+    <br>
+        </div>
+   </body>
+</html>

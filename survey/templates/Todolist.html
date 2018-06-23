@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+   <head>
+   <title>To Do List</title>
+   </head>
+
+{% include 'navbar.html' %} 
+<body>
+
+    <div class="container-fluid text-center">
+    <br>
+    <h1>To Do List</h1>
+    <br>
+    </div>
+    <div class="container bg-light">
+        <br>
+        <h5><legend>Add new ToDo item</legend></h5>
+        <br>
+    <form method="POST" action="/todolist">
+        <fieldset>
+        <p><input type="text" name="name" placeholder="Name of item" style="width:220px"> <input type="text" name="date" placeholder="Date Due" style="margin-left:10px;"></p>
+        <p><textarea name="additional" rows="4" cols="50" placeholder="Additional information"></textarea></p>
+        <input class="btn btn-primary" type="submit" name="submit" value="Save" style="width:100px">
+        </fieldset>
+    </form>
+<br>
+    </div>
+    <br>
+    <div class="container-fluid text-center">
+    <table class="table text-center" border="1">
+        <tr>
+            <td>
+            </td>  
+            <td>
+                <strong>Item</strong>
+            </td>  
+            <td>
+                <strong>Date Due</strong>
+            </td>
+            <td>
+                
+            </td>    
+        </tr>
+        {% for item in todo_items %}
+            {% if item.get_status() == False %} 
+            <tr>
+                <form method="POST" action="/todolist">
+                    <input type="hidden" name="id" value="{{ item.get_id() }}">
+                <td>
+                    <input type="submit" name= "submit" id = "done" value = "Done?">
+                </td>  
+                <td>
+                    {{ item.get_description() }}
+                </td>  
+                <td>
+                    {{ item.get_time() }}
+                </td>
+                <td>
+                    <input type="submit" name= "submit" id = "more"  value = "More">
+                </td>  
+            </form>  
+            </tr>
+            {% endif %}
+        {% endfor %}    
+    </table>
+    </div>
+<div class="container-fluid">
+<h4><a href="{{ url_for('todocompleted') }}" style="color:black" >View Completed Items -></a></h4>
+</div>
+   </body>
+</html>
